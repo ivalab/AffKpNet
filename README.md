@@ -1,16 +1,24 @@
-# [Dual Attention Network for Scene Segmentation(CVPR2019)](https://arxiv.org/pdf/1809.02983.pdf)
-[Jun Fu](https://github.com/junfu1115/), [Jing Liu](http://www.nlpr.ia.ac.cn/iva/liujing/index.html), [Haijie Tian](https://github.com/tianhaijie), [Yong Li](http://www.foreverlee.net), Yongjun Bao, Zhiwei Fang,and Hanqing Lu 
+# An Affordance Keypoint Detection Network for Robot Manipulation
+Ruinian Xu, Fu-Jen CHu, Chao Tang, Weiyu Liu and Patricio A. Vela
 ## Introduction
 
-We propose a Dual Attention Network (DANet) to adaptively integrate local features with their global dependencies based on the self-attention mechanism. And we achieve new state-of-the-art segmentation performance on three challenging scene segmentation datasets, i.e., Cityscapes, PASCAL Context and COCO Stuff-10k dataset.
+General purpose robotic manipulation requires robots to understand how objects may serve different purposes. Affordancces describe potential physical interactions between objects parts, and associate objects parts to actions for planning manipulation sequences. General manipulation ransoning and execution requires identifying: *what* the affordances of seen object parts are, *where* on the object that affordances act or should be acted on by the manipulator, and *how* the manipulator should execute the affordance's action. Recent studies of affordance cast affordance detection of object parts in the scene as an image segmentation problem. Object part pixels sharing the same functionality are predicted to have the same category and grouped into one instance. The segmentation-only methods obtain *what* information from the affordance mask and *where* information by post-processing the mask to compute its center location, as shown in the Figure 1. However *how* information is missing in these methods. Taking the knife as example, from the segmentation mask, it is hard to predict which side is blade. In order to provide the complete information for robotic manipulation, we propose to use a set of keypoints to represent each affordance. As shown in the Figure 2, for those affordances require certain way to operate like the cut and pound, keypoints 1 and 2 determine the operational direction. We also propose an Affordance Keypoint Detection Network (AffKp) to provide affordance segmentation and keypoint prediction for object parts. The network architecture is shown in the Figure 3.
 
-![image](img/overview.png)
+![image](img/fig_seg_only.png)
+![image](img/fig_kp_rep.png)
+![image](img/fig_network.png)
 
-## Cityscapes testing set result
+## UMD+GT segmentation result
 
-We train our DANet-101 with only fine annotated data and submit our test results to the official evaluation server.
+XX
 
-![image](img/tab3.png)
+![image](img/fig_seg_result.png)
+
+## UMD+GT keypoint result
+
+XX
+
+![image](img/fig_kp_result.png)
 
 ## Usage
 

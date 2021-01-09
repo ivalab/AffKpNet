@@ -10,13 +10,11 @@ General purpose robotic manipulation requires robots to understand how objects m
 
 ## UMD+GT segmentation result
 
-XX
 
 ![image](img/fig_seg_result.png)
 
 ## UMD+GT keypoint result
 
-XX
 
 ![image](img/fig_kp_result.png)
 
@@ -85,21 +83,10 @@ XX
    ```
  
    Note that: We adopt multiple losses in end of the network for better training. 
-   
 
-## Citation
-If DANet is useful for your research, please consider citing:
-```
-@article{fu2018dual,
-  title={Dual Attention Network for Scene Segmentation},
-  author={Jun Fu, Jing Liu, Haijie Tian, Yong Li, Yongjun Bao, Zhiwei Fang,and Hanqing Lu},
-  booktitle={The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2019}
-}
-```
-## Acknowledgement
-Thanks [PyTorch-Encoding](https://github.com/zhanghang1989/PyTorch-Encoding), especially the Synchronized BN!
+## Keypoint grouping algorithm
 
+## Affordance keypoint used in physical experiment
 
 ## Install
 
@@ -130,3 +117,17 @@ In `DANet/danet`, run
 CUDA_VISIBLE_DEVICES=0,1,2,3 python test.py --dataset cityscapes --model danet --resume-dir cityscapes/model --base-size 2048 --crop-size 768 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval
 
 ```
+
+
+## Citation
+If DANet is useful for your research, please consider citing:
+```
+@article{fu2018dual,
+  title={Dual Attention Network for Scene Segmentation},
+  author={Jun Fu, Jing Liu, Haijie Tian, Yong Li, Yongjun Bao, Zhiwei Fang,and Hanqing Lu},
+  booktitle={The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2019}
+}
+```
+## Acknowledgement
+Thanks [PyTorch-Encoding](https://github.com/zhanghang1989/PyTorch-Encoding), especially the Synchronized BN!

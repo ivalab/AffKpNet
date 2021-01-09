@@ -30,19 +30,19 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
 1. Install pytorch 
 
   - The code is tested on python3.6 and official [Pytorch@commitfd25a2a](https://github.com/pytorch/pytorch/tree/fd25a2a86c6afa93c7062781d013ad5f41e0504b#from-source), please install PyTorch from source.
-  - The code is modified from [PyTorch-Encoding](https://github.com/zhanghang1989/PyTorch-Encoding). 
+  - The code is modified from [DANet](https://github.com/junfu1115/DANet). 
   
 2. Clone the repository:
 
    ```shell
-   git clone https://github.com/junfu1115/DANet.git 
-   cd DANet 
+   git clone https://github.com/ivalab/AffKpNet
+   cd AffKpNet 
    python setup.py install
    ```
    
 3. Dataset
 
-  - Download the [Cityscapes](https://www.cityscapes-dataset.com/) dataset and convert the dataset to [19 categories](https://github.com/mcordts/cityscapesScripts/blob/master/cityscapesscripts/helpers/labels.py). 
+  - Download the [UMD+GT](https://sites.google.com/view/rgb-d-aff-kp-dataset) dataset.
   - Please put dataset in folder `./datasets`
 
 4 . Evaluation

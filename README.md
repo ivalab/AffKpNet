@@ -137,4 +137,4 @@ If DANet is useful for your research, please consider citing:
 }
 ```
 ## Acknowledgement
-Thanks [PyTorch-Encoding](https://github.com/zhanghang1989/PyTorch-Encoding), especially the Synchronized BN!
+Thanks [DANet](https://github.com/junfu1115/DANet).

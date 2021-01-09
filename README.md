@@ -15,12 +15,14 @@ Fig. 3 - Affordance keypoint detection network architecture.
 
 
 ![image](img/fig_seg_result.png)
+
 Fig. 4 - Result of affordance segmentation over UMD+GT dataset.
 
 ## UMD+GT keypoint result
 
 
 ![image](img/fig_kp_result.png)
+
 Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
 
 ## Usage

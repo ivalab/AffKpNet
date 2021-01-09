@@ -263,10 +263,10 @@ def kp_nms(kps_in):
             kps_iter.append(kp)
 
     # return input else all detections are highly cluttered else return filtered one
-    if len(kps_out) == 0:
+    if len(kps_iter) == 0:
         kps_iter = kps_in
     else:
-        kps_iter = np.array(kps_out)
+        kps_iter = np.array(kps_iter)
 
     kps_out = np.expand_dims(kps_iter[0, :], axis=0)  # always select the first one
     for kp in kps_iter:

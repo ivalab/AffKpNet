@@ -2,7 +2,7 @@
 Ruinian Xu, Fu-Jen Chu, Chao Tang, Weiyu Liu and Patricio A. Vela
 
 ## Description of Contents
-This repository is for reproduce the work of An Affordance keypoint Detction Network for Robot Manipulation. 
+This repository is for reproducing the work of An Affordance keypoint Detction Network for Robot Manipulation. In order to run every component, you will need several markdown files to go through. The []()
 
 ## Table of Contents
 - [Introduction](#Introduction)

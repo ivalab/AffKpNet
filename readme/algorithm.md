@@ -8,7 +8,7 @@ Fig. 1 - Example image.
 
 The pseudo-code is attach for better understanding. 
 
-![image](../img/)
+![image](../img/pseudo_code.png)
 
 Algorithm. 1 - Pseudo code for the keypoint grouping algorithm.
 

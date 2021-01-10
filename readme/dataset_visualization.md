@@ -249,12 +249,12 @@ The object comes from UMD dataset and GT dataset. The visualization of each obje
 
 ### Spoon
 
-![image](../img/dataset/gt/spoon_01_00000001_rgb.png)
+![image](../img/dataset/gt/spoon_11_00000001_rgb.png)
 
-![image](../img/dataset/gt/spoon_02_00000001_rgb.png)
+![image](../img/dataset/gt/spoon_12_00000001_rgb.png)
 
-![image](../img/dataset/gt/spoon_03_00000001_rgb.png)
+![image](../img/dataset/gt/spoon_13_00000001_rgb.png)
 
-![image](../img/dataset/gt/spoon_04_00000001_rgb.png)
+![image](../img/dataset/gt/spoon_14_00000001_rgb.png)
 
-![image](../img/dataset/gt/spoon_05_00000001_rgb.png)
+![image](../img/dataset/gt/spoon_15_00000001_rgb.png)

@@ -1,5 +1,17 @@
 # An Affordance Keypoint Detection Network for Robot Manipulation
 Ruinian Xu, Fu-Jen CHu, Chao Tang, Weiyu Liu and Patricio A. Vela
+
+## Table of Contents
+- [Introduction](#Introduction)
+- [Result](#Result-1)
+  * [segmentation](#segmentation)
+  * [keypoint](#keypoint)
+- [Usage](#Usage)
+- [Keypoint grouping algorithm](#Keypoint grouping algorithm)
+- [Affordance keypoint usage in physical experiment](#Affordance keypoint usage in physical experiment)
+- [Install](#Install)
+
+
 ## Introduction
 
 General purpose robotic manipulation requires robots to understand how objects may serve different purposes. Affordancces describe potential physical interactions between objects parts, and associate objects parts to actions for planning manipulation sequences. General manipulation ransoning and execution requires identifying: ***what*** the affordances of seen object parts are, ***where*** on the object that affordances act or should be acted on by the manipulator, and ***how*** the manipulator should execute the affordance's action. Recent studies of affordance cast affordance detection of object parts in the scene as an image segmentation problem. Object part pixels sharing the same functionality are predicted to have the same category and grouped into one instance. The segmentation-only methods obtain ***what*** information from the affordance mask and ***where*** information by post-processing the mask to compute its center location, as shown in the Figure 1. However ***how*** information is missing in these methods. Taking the knife as example, from the segmentation mask, it is hard to predict which side is blade. In order to provide the complete information for robotic manipulation, we propose to use a set of keypoints to represent each affordance. As shown in the Figure 2, for those affordances require certain way to operate like the cut and pound, keypoints 1 and 2 determine the operational direction. We also propose an Affordance Keypoint Detection Network (AffKp) to provide affordance segmentation and keypoint prediction for object parts. The network architecture is shown in the Figure 3.
@@ -11,14 +23,15 @@ Fig. 2 - Affordance keypoint representation for six affordances.
 ![image](img/fig_network.png)
 Fig. 3 - Affordance keypoint detection network architecture.
 
-## UMD+GT segmentation result
+## Result
+### UMD+GT segmentation result
 
 
 ![image](img/fig_seg_result.png)
 
 Fig. 4 - Result of affordance segmentation over UMD+GT dataset.
 
-## UMD+GT keypoint result
+### UMD+GT keypoint result
 
 
 ![image](img/fig_kp_result.png)
@@ -93,7 +106,7 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
 
 ## Keypoint grouping algorithm
 
-## Affordance keypoint used in physical experiment
+## Affordance keypoint usage in physical experiment
 
 ## Install
 

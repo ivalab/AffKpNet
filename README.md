@@ -4,8 +4,8 @@ Ruinian Xu, Fu-Jen CHu, Chao Tang, Weiyu Liu and Patricio A. Vela
 ## Table of Contents
 - [Introduction](#Introduction)
 - [Result](#Result-1)
-  * [segmentation](#segmentation)
-  * [keypoint](#keypoint)
+  * [segmentation](#UMD+GT-segmentation-result)
+  * [keypoint](#UMD+GT-keypoint-result)
 - [Usage](#Usage)
 - [Keypoint grouping algorithm](#Keypoint-grouping-algorithm)
 - [Affordance keypoint usage in physical experiment](#Affordance-keypoint-usage-in-physical-experiment)

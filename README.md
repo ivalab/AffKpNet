@@ -9,7 +9,8 @@ Ruinian Xu, Fu-Jen CHu, Chao Tang, Weiyu Liu and Patricio A. Vela
 - [Usage](#Usage)
 - [Keypoint grouping algorithm](#Keypoint-grouping-algorithm)
 - [Affordance keypoint usage in physical experiment](#Affordance-keypoint-usage-in-physical-experiment)
-- [Install](#Install)
+- [Physical experiment related code](#Physical-experiment-related-code)
+- [Installation](#Installation)
 
 
 ## Introduction
@@ -108,7 +109,9 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
 
 ## Affordance keypoint usage in physical experiment
 
-## Install
+## Physical experiment related code
+
+## Installation
 
 ### environment
 Use `anaconda` for `python3`, `pytorch 1.0` and `cuda8.0`.

@@ -36,17 +36,17 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/out_of_distribution/scissors/scissors_4_kp.png)
 
-### sparyer
+### sprayer
 
-![image](../img/out_of_distribution/sparyer/sparyer.png)
+![image](../img/out_of_distribution/sprayer/sparyer.png)
 
-![image](../img/out_of_distribution/sparyer/sparyer_mask.png)
+![image](../img/out_of_distribution/sprayer/sparyer_mask.png)
 
-![image](../img/out_of_distribution/sparyer/sparyer_0_kp.png)
+![image](../img/out_of_distribution/sprayer/sparyer_0_kp.png)
 
-![image](../img/out_of_distribution/sparyer/sparyer_2_kp.png)
+![image](../img/out_of_distribution/sprayer/sparyer_2_kp.png)
 
-![image](../img/out_of_distribution/sparyer/sparyer_4_kp.png)
+![image](../img/out_of_distribution/sprayer/sparyer_4_kp.png)
 
 ### tennis_ball
 

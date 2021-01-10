@@ -7,8 +7,8 @@ Ruinian Xu, Fu-Jen CHu, Chao Tang, Weiyu Liu and Patricio A. Vela
   * [segmentation](#segmentation)
   * [keypoint](#keypoint)
 - [Usage](#Usage)
-- [Keypoint grouping algorithm](#Keypoint grouping algorithm)
-- [Affordance keypoint usage in physical experiment](#Affordance keypoint usage in physical experiment)
+- [Keypoint grouping algorithm](#Keypoint-grouping-algorithm)
+- [Affordance keypoint usage in physical experiment](#Affordance-keypoint-usage-in-physical-experiment)
 - [Install](#Install)
 
 

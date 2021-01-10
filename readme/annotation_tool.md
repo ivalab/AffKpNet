@@ -28,6 +28,9 @@ We put four aruco tags on the rotating table during collecting the images. The a
 position between the object and aruco tags won't change. After determining keypoints for one image, we can use detected aruco tags to automatically generate keypoints
 for new images. The [script]() is provided. Since the frame detected by the aruco tag isn't perfect, these keypoints still need further modification.
 
+Because we have all the real objects in our dataset, the dimension of each object is accessible. For each of the keypoint of an object, we can measure the relative locations from the object center. Therefore, all the relative locations of keypoints in 3D from the object center are easily attainable. We keep this information in a text file. During automatic annotation process, an object is placed at the center of the rotating table, where the table is attached with four aruco tags at its fours corners. By using aruco libraries, the center of the table is located with its orientation (used as the origin of the coordination system). By importing the previously mentioned text file of relative keypoint locations, the 3D location of each keypoint is transformed to the same coordinate system, and the keypoints could overlay with the object placed on the table for visual check.    
+
+
 ### Fine-tune
 This step is laborous since we need to check the keypoint ground truth for each image. In order to make the life easier, based on the assumption that the general geometry
 of the keypoint won't change a lot with the error of the aruco tag, we develop two ways. One is to manually annotate the single affordance keypoint if it is imperfect. 

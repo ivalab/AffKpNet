@@ -1,5 +1,8 @@
 # An Affordance Keypoint Detection Network for Robot Manipulation
-Ruinian Xu, Fu-Jen CHu, Chao Tang, Weiyu Liu and Patricio A. Vela
+Ruinian Xu, Fu-Jen Chu, Chao Tang, Weiyu Liu and Patricio A. Vela
+
+## Description of Contents
+This repository is for reproduce the work of An Affordance keypoint Detction Network for Robot Manipulation. 
 
 ## Table of Contents
 - [Introduction](#Introduction)

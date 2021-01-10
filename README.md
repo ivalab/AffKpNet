@@ -4,8 +4,8 @@ Ruinian Xu, Fu-Jen CHu, Chao Tang, Weiyu Liu and Patricio A. Vela
 ## Table of Contents
 - [Introduction](#Introduction)
 - [Result](#Result-1)
-  * [segmentation](#UMD+GT-segmentation-result)
-  * [keypoint](#UMD+GT-keypoint-result)
+  * [segmentation](#UMD-GT-segmentation-result)
+  * [keypoint](#UMD-GT-keypoint-result)
 - [Usage](#Usage)
 - [Keypoint grouping algorithm](#Keypoint-grouping-algorithm)
 - [Affordance keypoint usage in physical experiment](#Affordance-keypoint-usage-in-physical-experiment)
@@ -24,14 +24,14 @@ Fig. 2 - Affordance keypoint representation for six affordances.
 Fig. 3 - Affordance keypoint detection network architecture.
 
 ## Result
-### UMD+GT segmentation result
+### UMD GT segmentation result
 
 
 ![image](img/fig_seg_result.png)
 
 Fig. 4 - Result of affordance segmentation over UMD+GT dataset.
 
-### UMD+GT keypoint result
+### UMD GT keypoint result
 
 
 ![image](img/fig_kp_result.png)

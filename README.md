@@ -108,7 +108,7 @@ Currently the `maskrcnn_benchmark` environment is shared with this project. `sou
 ' for cpu implementation
 
 ### single GPU
-In `danet/train.py`, replace `norm_layer=BatchNorm2d` with `norm_layer=torch.nn.BatchNorm2d`
+In `danet_kp/train_aff_kp.py`, replace `norm_layer=BatchNorm2d` with `norm_layer=torch.nn.BatchNorm2d`
 
 
 ## Citation

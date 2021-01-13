@@ -110,19 +110,6 @@ Currently the `maskrcnn_benchmark` environment is shared with this project. `sou
 ### single GPU
 In `danet/train.py`, replace `norm_layer=BatchNorm2d` with `norm_layer=torch.nn.BatchNorm2d`
 
-### train
-In `DANet/danet`, run
-```
-CUDA_VISIBLE_DEVICES=0 python train.py --dataset cityscapes --model  danet --backbone resnet101 --checkname danet101  --base-size 1024 --crop-size 768 --epochs 240 --batch-size 1 --lr 0.003 --workers 2 --multi-grid --multi-dilation 4 8 16
-```
-
-### test
-In `DANet/danet`, run
-```
-CUDA_VISIBLE_DEVICES=0,1,2,3 python test.py --dataset cityscapes --model danet --resume-dir cityscapes/model --base-size 2048 --crop-size 768 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval
-
-```
-
 
 ## Citation
 If AKNet is useful for your research, please consider citing:

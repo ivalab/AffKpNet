@@ -61,49 +61,37 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
 
 4 . Evaluation
 
-  - Download trained model [DANet101](https://drive.google.com/open?id=1XmpFEF-tbPH0Rmv4eKRxYJngr3pTbj6p) and put it in folder `./danet/cityscapes/model`
-  - Evaluation code is in folder `./danet/cityscapes`
+  - Download trained model [AKNet]() and put it in folder `./danet_kp/umd_gt/model`
+  - Evaluation code is in folder `./danet_kp`
   - `cd danet`
 
-  - For single scale testing, please run:
+  - For evaluating affordance segmentation, please run:
   
    ```shell
    CUDA_VISIBLE_DEVICES=0,1,2,3 python test.py --dataset cityscapes --model danet --resume-dir cityscapes/model --base-size 2048 --crop-size 768 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval
    ```
    
-  - For multi-scale testing, please run:
+  - For evaluating affordance keypoint, please run:
   
    ```shell
    CUDA_VISIBLE_DEVICES=0,1,2,3 python test.py --dataset cityscapes --model danet --resume-dir cityscapes/model --base-size 2048 --crop-size 1024 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval --multi-scales
    ```  
    
-  - If you want to visualize the result of DAN-101, you can run:
- 
-   ```shell
-   CUDA_VISIBLE_DEVICES=0,1,2,3 python test.py --dataset cityscapes --model danet --resume-dir cityscapes/model --base-size 2048 --crop-size 768 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16
-   ```
-   
 5. Evaluation Result:
 
-   The expected scores will show as follows:
-   
-   (single scale testing denotes as 'ss' and multiple scale testing denotes as 'ms')
-   
-   DANet101 on cityscapes val set (mIoU/pAcc): **79.93/95.97** (ss) and **81.49/96.41** (ms)
+   The expected scores should be same or similar to the Tables attached above.
 
 
 6. Training:
 
-  - Training code is in folder `./danet/cityscapes`
-  - `cd danet`
+  - Training code is in folder `./danet_kp`
+  - `cd danet_kp`
   
    You can reproduce our result by run:
 
   ```shell
    CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --dataset cityscapes --model  danet --backbone resnet101 --checkname danet101  --base-size 1024 --crop-size 768 --epochs 240 --batch-size 8 --lr 0.003 --workers 2 --multi-grid --multi-dilation 4 8 16
    ```
- 
-   Note that: We adopt multiple losses in end of the network for better training. 
 
 ## Installation
 
@@ -137,14 +125,9 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python test.py --dataset cityscapes --model danet -
 
 
 ## Citation
-If DANet is useful for your research, please consider citing:
+If AKNet is useful for your research, please consider citing:
 ```
-@article{fu2018dual,
-  title={Dual Attention Network for Scene Segmentation},
-  author={Jun Fu, Jing Liu, Haijie Tian, Yong Li, Yongjun Bao, Zhiwei Fang,and Hanqing Lu},
-  booktitle={The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2019}
-}
 ```
+
 ## Acknowledgement
 Thanks [DANet](https://github.com/junfu1115/DANet).

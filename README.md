@@ -10,9 +10,6 @@ This repository is for reproducing the work of An Affordance keypoint Detction N
   * [segmentation](#UMD-GT-segmentation-result)
   * [keypoint](#UMD-GT-keypoint-result)
 - [Usage](#Usage)
-- [Keypoint grouping algorithm](#Keypoint-grouping-algorithm)
-- [Affordance keypoint usage in physical experiment](#Affordance-keypoint-usage-in-physical-experiment)
-- [Physical experiment related code](#Physical-experiment-related-code)
 - [Installation](#Installation)
 
 
@@ -107,12 +104,6 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
    ```
  
    Note that: We adopt multiple losses in end of the network for better training. 
-
-## Keypoint grouping algorithm
-
-## Affordance keypoint usage in physical experiment
-
-## Physical experiment related code
 
 ## Installation
 

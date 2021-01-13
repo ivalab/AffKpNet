@@ -1,26 +1,22 @@
 import sys, os
-sys.path.append('/home/fujenchu/projects/affordanceContext/DANet/')
+sys.path.append(os.path.join(os.path.abspath(os.getcwd()), '..'))
 
 import os
 import numpy as np
 import cv2
-from scipy import ndimage
 import pyrealsense2 as rs
 
-import torch
-from torch import nn
-from torch.utils import data
-import torchvision.transforms as transform
-from torch.nn.parallel.scatter_gather import gather
+import rospy
+from std_msgs.msg import Bool
+from std_msgs.msg import Float64MultiArray
 
-import encoding.utils as utils
+import torch
+
 from encoding.nn import SegmentationLosses, BatchNorm2d
-from encoding.parallel import DataParallelModel, DataParallelCriterion
-from encoding.datasets import get_segmentation_dataset, test_batchify_fn
 from encoding.models import get_model, get_segmentation_model, MultiEvalModule
 
-from per_utils import get_M_CL, project, compute_radius_wgrasp
-from kp_alg_utils import kp_post_process, class_vote_n_incorrect_fix, kp_nms_per_group, kp_nms_groups, \
+from utils.perception_utils import get_M_CL, project, compute_radius_wgrasp
+from utils.kp_alg_utils import kp_post_process, class_vote_n_incorrect_fix, kp_nms_per_group, kp_nms_groups, \
                          geometric_contrain_filter, single_aff_filter
 
 from option import Options
@@ -44,11 +40,11 @@ aff_dict = {'grasp': 1,
             'pound': 5,
             'wgrasp': 6}
 
-M_CL = np.array([[-0.23821,    -0.96991648,  0.05017976, -0.16822528],
-                 [-0.74092675,  0.14808033, -0.65505707,  0.13864789],
-                 [ 0.62792002, -0.19322067, -0.75391128,  0.65720137],
-                 [ 0.,          0.,          0.,          1.        ]]
-                )
+default_M_CL = np.array([[-0.07134498, -0.99639369,  0.0459293,  -0.13825178],
+                         [-0.8045912,   0.03027403, -0.59305689,  0.08434352],
+                         [ 0.58952768, -0.07926594, -0.8038495,   0.66103522],
+                         [ 0.,          0.,          0.,          1.        ]]
+                        )
 
 M_BL = np.array([[1., 0., 0.,  0.30000],
                  [0., 1., 0.,  0.32000],
@@ -61,8 +57,10 @@ cameraMatrix = np.array([[607.47165, 0.0,  325.90064],
 distCoeffs = np.array([0.08847, -0.04283, 0.00134, -0.00102, 0.0])
 
 num_ouput = 500
+flag_act = False
+flag_vis = False
 
-def test(args, pipeline, align, depth_scale):
+def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act):
     if args.model_zoo is not None:
         model = get_model(args.model_zoo, pretrained=True)
     else:
@@ -91,22 +89,25 @@ def test(args, pipeline, align, depth_scale):
     model.cuda()
     model.eval()
 
-    try:
-        while True:
-            # Wait for a coherent pair of frames: depth and color
-            frames = pipeline.wait_for_frames()
+    while not rospy.is_shutdown():
+        # Wait for a coherent pair of frames: depth and color
+        frames = pipeline.wait_for_frames()
 
-            # Align the depth frame to color frame
-            aligned_frames = align.process(frames)
+        # Align the depth frame to color frame
+        aligned_frames = align.process(frames)
 
-            depth_frame = aligned_frames.get_depth_frame()
-            color_frame = aligned_frames.get_color_frame()
+        depth_frame = aligned_frames.get_depth_frame()
+        color_frame = aligned_frames.get_color_frame()
 
-            # Convert images to numpy arrays
-            depth_raw = np.array(depth_frame.get_data()) * depth_scale
-            depth = (depth_raw / depth_scale).astype(np.uint8)
-            img = np.array(color_frame.get_data())
-            gray = img.astype(np.uint8)
+        # Convert images to numpy arrays
+        depth_raw = np.array(depth_frame.get_data()) * depth_scale
+        depth = (depth_raw / depth_scale).astype(np.uint8)
+        img = np.array(color_frame.get_data())
+        gray = img.astype(np.uint8)
+
+        if flag_act is True or flag_vis is False:
+            flag_vis = False
+            pub_vis.publish(flag_vis)
 
             # read the reference frame of the aruco tag
             M_CL = get_M_CL(gray, img, True)
@@ -114,6 +115,7 @@ def test(args, pipeline, align, depth_scale):
             img_ori = img.copy()
 
             depth_ori = depth.copy()
+            # convert raw depth to 0-255
             depth[depth > 1887] = 1887
             depth = (depth - 493) * 254 / (1887 - 493)
             depth[depth < 0] = 0
@@ -144,9 +146,11 @@ def test(args, pipeline, align, depth_scale):
             mask = np.zeros((output_np.shape[0], output_np.shape[1], 3), dtype=np.uint8)
             for idx11 in range(len(idx_y)):
                 mask[idx_y[idx11], idx_x[idx11], :] = color_dict[output_np[idx_y[idx11], idx_x[idx11]]]
+
+            cv2.namedWindow('origional image', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('origional image', img_ori)
             cv2.namedWindow('mask', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('mask', mask)
-
 
             # find the bound for each instance segmentation
             bounds = []
@@ -161,91 +165,188 @@ def test(args, pipeline, align, depth_scale):
                 max_x = np.max(idx_x)
                 min_y = np.min(idx_y)
                 max_y = np.max(idx_y)
-                bounds.append([min_x, max_x, min_y, max_y])
 
-            for idx_s, bound in enumerate(bounds):
-                min_x, max_x, min_y, max_y = bound[:]
-                # give some tolerances
-                min_x = min_x - 25
-                max_x = max_x + 25
-                min_y = min_y - 25
-                max_y = max_y + 25
+                area = (max_x - min_x) * (max_y - min_y)
 
-                outputs = model(img[:, :, min_y:max_y, min_x:max_x].float())
+                aff_cat = np.unique(output_np[min_y:max_y, min_x:max_x])
+                if 1 not in aff_cat and 6 not in aff_cat:
+                    continue
+                if area > 800:
+                    bounds.append([min_x, max_x, min_y, max_y])
 
-                # affordance segmentation
-                output_np = np.asarray(outputs['sasc'].data.cpu())
-                output_np = output_np[0].transpose(1, 2, 0)
-                output_np = np.asarray(np.argmax(output_np, axis=2), dtype=np.uint8)
+            if len(bounds) == 0:
+                print('The table is empty')
+                break
 
-                idx_y, idx_x = np.where(output_np != 0)
-                mask = np.zeros((output_np.shape[0], output_np.shape[1], 3), dtype=np.uint8)
-                for idx11 in range(len(idx_y)):
-                    mask[idx_y[idx11], idx_x[idx11], :] = color_dict[output_np[idx_y[idx11], idx_x[idx11]]]
-                cv2.namedWindow('original image', cv2.WINDOW_AUTOSIZE)
-                cv2.imshow('original image', img_ori[min_y:max_y, min_x:max_x, :])
-                cv2.namedWindow('mask', cv2.WINDOW_AUTOSIZE)
-                cv2.imshow('mask', mask)
+            max_right = 0
+            bound = None
+            for item in bounds:
+                min_x, max_x, min_y, max_y = item[:]
+                if max_x > max_right:
+                    max_right = max_x
+                    bound = item
 
-                pred_kps = \
-                kp_post_process(outputs, max_y-min_y, max_x-min_x, kernel=1, ae_threshold=1.0, scores_thresh=0.05, max_num_aff=50,
-                                num_ouput=num_ouput)[0]
+            min_x, max_x, min_y, max_y = bound[:]
+            # give some tolerances
+            min_x = min_x - 5
+            max_x = max_x + 5
+            min_y = min_y - 5
+            max_y = max_y + 5
 
-                # class vote and fix keypoints with incorrect class
-                kps = class_vote_n_incorrect_fix(pred_kps)
+            outputs = model(img[:, :, min_y:max_y, min_x:max_x].float())
 
-                # remove keypoint highly overlapped results
-                kps_f1 = kp_nms_per_group(kps)
+            # affordance segmentation
+            output_np = np.asarray(outputs['sasc'].data.cpu())
+            output_np = output_np[0].transpose(1, 2, 0)
+            output_np = np.asarray(np.argmax(output_np, axis=2), dtype=np.uint8)
 
-                # remove highly overlapped grouping results
-                kps_f2 = kp_nms_groups(kps_f1)
+            idx_y, idx_x = np.where(output_np != 0)
+            mask = np.zeros((output_np.shape[0], output_np.shape[1], 3), dtype=np.uint8)
+            for idx11 in range(len(idx_y)):
+                mask[idx_y[idx11], idx_x[idx11], :] = color_dict[output_np[idx_y[idx11], idx_x[idx11]]]
+            cv2.namedWindow('cropped image', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('cropped image', img_ori[min_y:max_y, min_x:max_x, :])
+            cv2.namedWindow('mask for cropped image', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('mask for cropped image', mask)
 
-                kps_f3 = geometric_contrain_filter(kps_f2)
+            pred_kps = \
+            kp_post_process(outputs, max_y-min_y, max_x-min_x, kernel=1, ae_threshold=1.0, scores_thresh=0.05, max_num_aff=50,
+                            num_ouput=num_ouput)[0]
 
-                # single output per aff
-                kps_final = single_aff_filter(kps_f3)
+            # class vote and fix keypoints with incorrect class
+            kps = class_vote_n_incorrect_fix(pred_kps)
 
-                p_c_3d = None
-                radius = 0.
-                height = 0.
-                for kp in kps_final:
-                    if kp[11] == 5:
-                        # project operating location to 3d
-                        p_c = [int(kp[8] + min_x), int(kp[9] + min_y)]
-                        p_c_3d = project(p_c, depth_ori, M_CL, M_BL, cameraMatrix)
+            # remove keypoint highly overlapped results
+            kps_f1 = kp_nms_per_group(kps)
 
-                        # compute the radius of cylinder
-                        radius = compute_radius_wgrasp(output_np, depth_ori[min_y:max_y, min_x:max_x], M_CL, M_BL, cameraMatrix)
+            # remove highly overlapped grouping results
+            kps_f2 = kp_nms_groups(kps_f1)
 
-                        # compute the height of the cylinder
-                        p_3 = [int(kp[4] + min_x), int(kp[5] + min_y)]
+            kps_f3 = geometric_contrain_filter(kps_f2)
+
+            # single output per aff
+            kps_final = single_aff_filter(kps_f3)
+
+            for kp in kps_final:
+                if 4 in np.unique(aff_map[min_y:max_y, min_x:max_x]):
+                    if kp[11] == 0:
+                        continue
+
+                if kp[11] == 0:
+                    # project grasp center to 3d
+                    p_c = [int(kp[8] + min_x), int(kp[9]) + min_y]
+                    p_c_3d = project(p_c, depth_ori, M_CL, M_BL, cameraMatrix)
+
+                    # compute orientation
+                    p_3 = [int(kp[4] + min_x), int(kp[5]) + min_y]
+                    p_4 = [int(kp[6] + min_x), int(kp[7]) + min_y]
+                    p_3_3d = project(p_3, depth_ori, M_CL, M_BL, cameraMatrix)
+                    p_4_3d = project(p_4, depth_ori, M_CL, M_BL, cameraMatrix)
+
+                    angle = np.arctan2(p_4_3d[1] - p_3_3d[1], p_4_3d[0] - p_3_3d[0])
+                    # motor 7 is clockwise
+                    if angle > np.pi / 2:
+                        angle = np.pi - angle
+                    elif angle < -np.pi / 2:
+                        angle = -np.pi - angle
+                    else:
+                        angle = -angle
+
+                    # check if it is necessary to flip the tableware
+                    p_1 = [int(kp[0] + min_x), int(kp[1]) + min_y]
+                    p_2 = [int(kp[2] + min_x), int(kp[3]) + min_y]
+                    p_1_3d = project(p_1, depth_ori, M_CL, M_BL, cameraMatrix)
+                    p_2_3d = project(p_2, depth_ori, M_CL, M_BL, cameraMatrix)
+                    flip_flag = False
+                    if p_1_3d[1] < p_2_3d[1]:
+                        flip_flag = True
+                    else:
+                        flip_flag = False
+
+                    print("Grasp affordance detected!")
+                    # print(p_c_3d)
+                    # print(angle)
+                    # print(flip_flag)
+
+                    img_show = img_ori.copy()
+                    img_show = cv2.circle(img_show, (int(kp[0] + min_x), int(kp[1] + min_y)), 2, (0, 0, 255), 2)  # red
+                    img_show = cv2.circle(img_show, (int(kp[2] + min_x), int(kp[3] + min_y)), 2, (0, 255, 0),
+                                          2)  # green
+                    img_show = cv2.circle(img_show, (int(kp[4] + min_x), int(kp[5] + min_y)), 2, (255, 0, 0), 2)  # blue
+                    img_show = cv2.circle(img_show, (int(kp[6] + min_x), int(kp[7] + min_y)), 2, (220, 0, 255),
+                                          2)  # purple pink
+                    img_show = cv2.circle(img_show, (int(kp[8] + min_x), int(kp[9] + min_y)), 2, (0, 0, 0), 2)  # dark
+
+                    img_show = cv2.putText(img_show, 'Aff id:' + str(kp[11]), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                                           (255, 0, 0), 2, cv2.LINE_AA)
+
+                    # turn the flag to true for notifying ROS side
+                    flag_vis = True
+                    result = [0, p_c_3d[0], p_c_3d[1], p_c_3d[2], angle]
+
+                    pub_vis.publish(flag_vis)
+                    pub_res.publish(result)
+
+                    cv2.namedWindow('visual', cv2.WINDOW_AUTOSIZE)
+                    cv2.imshow('visual', img_show)
+                    cv2.waitKey(0)
+                elif kp[11] == 5:
+                    # project operating location to 3d
+                    p_c = [int(kp[8] + min_x), int(kp[9] + min_y)]
+                    p_c_3d = project(p_c, depth_ori, M_CL, M_BL, cameraMatrix)
+
+                    # compute the radius of cylinder
+                    radius = compute_radius_wgrasp(output_np, depth_ori[min_y:max_y, min_x:max_x], M_CL, M_BL,
+                                                   cameraMatrix)
+
+                    p_c_3d[0] += (radius * 2)
+
+                    # compute the height of the cylinder
+                    p_3 = [int(kp[4] + min_x), int(kp[5] + min_y)]
+                    p_3_3d = project(p_3, depth_ori, M_CL, M_BL, cameraMatrix)
+                    while depth_ori[p_3[1], p_3[0]] == 0:
+                        p_3[1] = p_3[1] - 1
                         p_3_3d = project(p_3, depth_ori, M_CL, M_BL, cameraMatrix)
-                        while depth_ori[p_3[1], p_3[0]] == 0:
-                            p_3[1] = p_3[1] - 1
-                            p_3_3d = project(p_3, depth_ori, M_CL, M_BL, cameraMatrix)
 
-                        height = p_3_3d[2] + 0.045
+                    p_4 = [int(kp[6] + min_x), int(kp[7] + min_y)]
+                    p_4_3d = project(p_4, depth_ori, M_CL, M_BL, cameraMatrix)
+                    while depth_ori[p_4[1], p_4[0]] == 0:
+                        p_4[1] = p_4[1] - 1
+                        p_4_3d = project(p_4, depth_ori, M_CL, M_BL, cameraMatrix)
 
-                        img_show = img_ori.copy()
-                        img_show = cv2.circle(img_show, (int(kp[0] + min_x), int(kp[1] + min_y)), 2, (0, 0, 255), 2)  # red
-                        img_show = cv2.circle(img_show, (int(kp[2] + min_x), int(kp[3] + min_y)), 2, (0, 255, 0), 2)  # green
-                        img_show = cv2.circle(img_show, (int(kp[4] + min_x), int(kp[5] + min_y)), 2, (255, 0, 0), 2)  # blue
-                        img_show = cv2.circle(img_show, (int(kp[6] + min_x), int(kp[7] + min_y)), 2, (220, 0, 255), 2)  # purple pink
-                        img_show = cv2.circle(img_show, (int(kp[8] + min_x), int(kp[9] + min_y)), 2, (0, 0, 0), 2)  # dark
-                        img_show = cv2.putText(img_show, 'Aff id:' + str(kp[11]), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                                               (255, 0, 0), 2, cv2.LINE_AA)
+                    height = p_3_3d[2] + 0.045
 
-                print('cylinder radius: {}'.format(radius))
-                print('cylinder height: {}'.format(height))
-                p_c_3d[0] += (radius * 2)
-                print('operating location: {}'.format(p_c_3d))
+                    flip_flag = True
+                    if p_3_3d[2] > p_4_3d[2]:
+                        flip_flag = True
+                    else:
+                        flip_flag = False
 
-                cv2.namedWindow('visual', cv2.WINDOW_AUTOSIZE)
-                cv2.imshow('visual', img_show)
-                cv2.waitKey(0)
-    finally:
-        # Stop streaming
-        pipeline.stop()
+                    img_show = img_ori.copy()
+                    img_show = cv2.circle(img_show, (int(kp[0] + min_x), int(kp[1] + min_y)), 2, (0, 0, 255), 2)  # red
+                    img_show = cv2.circle(img_show, (int(kp[2] + min_x), int(kp[3] + min_y)), 2, (0, 255, 0),
+                                          2)  # green
+                    img_show = cv2.circle(img_show, (int(kp[4] + min_x), int(kp[5] + min_y)), 2, (255, 0, 0), 2)  # blue
+                    img_show = cv2.circle(img_show, (int(kp[6] + min_x), int(kp[7] + min_y)), 2, (220, 0, 255),
+                                          2)  # purple pink
+                    img_show = cv2.circle(img_show, (int(kp[8] + min_x), int(kp[9] + min_y)), 2, (0, 0, 0), 2)  #
+
+                    img_show = cv2.putText(img_show, 'Aff id:' + str(kp[11]), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                                           (255, 0, 0), 2, cv2.LINE_AA)
+
+                    # turn the flag to true for notifying ROS side
+                    flag_vis = True
+                    result = [p_c_3d[0], p_c_3d[1], p_c_3d[2], radius, height]
+
+                    pub_vis.publish(flag_vis)
+                    pub_res.publish(result)
+
+                    cv2.namedWindow('visual', cv2.WINDOW_AUTOSIZE)
+                    cv2.imshow('visual', img_show)
+                    cv2.waitKey(0)
+
+    # Stop streaming
+    pipeline.stop()
 
 if __name__ == "__main__":
     args = Options().parse()
@@ -267,4 +368,13 @@ if __name__ == "__main__":
     align_to = rs.stream.color
     align = rs.align(align_to)
 
-    test(args, pipeline, align, depth_scale)
+    # initialize ros node
+    rospy.init_node("Object arrangement experiment")
+    # Publisher of flag for finishing detection
+    pub_vis = rospy.Publisher('/flag_vision', Bool, queue_size=10)
+    # Publisher of perception result
+    pub_res = rospy.Publisher('/result', Float64MultiArray, queue_size=10)
+    # Subscriber of flag of action completion
+    sub_act = rospy.Subscriber("/flag_action", Bool, callback_action)
+
+    inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act)

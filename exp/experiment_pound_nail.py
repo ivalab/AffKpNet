@@ -219,7 +219,7 @@ def inference(args, pipeline, align, depth_scale, pub_res):
 
         # publish the detection result on ROS topic
         result = [g_p_c_3d[0], g_p_c_3d[1], g_p_c_3d[2], g_angle,
-                  p_p_c_3d[0], p_p_c_3d[1], p_p_c_3d[2],
+                  p_p_c_3d[0], p_p_c_3d[1],
                   p_p_1_3d[0], p_p_1_3d[1],
                   p_p_2_3d[0], p_p_2_3d[1]]
         pub_res.publish(result)

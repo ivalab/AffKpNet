@@ -59,8 +59,9 @@ distCoeffs = np.array([0.08847, -0.04283, 0.00134, -0.00102, 0.0])
 num_ouput = 500
 flag_act = False
 flag_vis = False
+flag_task = False
 
-def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act):
+def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, pub_task):
     if args.model_zoo is not None:
         model = get_model(args.model_zoo, pretrained=True)
     else:
@@ -176,6 +177,8 @@ def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act):
 
             if len(bounds) == 0:
                 print('The table is empty')
+                flag_task = True
+                pub_task.publish(flag_task)
                 break
 
             max_right = 0
@@ -257,16 +260,13 @@ def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act):
                     p_2 = [int(kp[2] + min_x), int(kp[3]) + min_y]
                     p_1_3d = project(p_1, depth_ori, M_CL, M_BL, cameraMatrix)
                     p_2_3d = project(p_2, depth_ori, M_CL, M_BL, cameraMatrix)
-                    flip_flag = False
+                    flip_flag = 0
                     if p_1_3d[1] < p_2_3d[1]:
-                        flip_flag = True
+                        flip_flag = 1
                     else:
-                        flip_flag = False
+                        flip_flag = 0
 
                     print("Grasp affordance detected!")
-                    # print(p_c_3d)
-                    # print(angle)
-                    # print(flip_flag)
 
                     img_show = img_ori.copy()
                     img_show = cv2.circle(img_show, (int(kp[0] + min_x), int(kp[1] + min_y)), 2, (0, 0, 255), 2)  # red
@@ -282,7 +282,7 @@ def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act):
 
                     # turn the flag to true for notifying ROS side
                     flag_vis = True
-                    result = [0, p_c_3d[0], p_c_3d[1], p_c_3d[2], angle]
+                    result = [0, p_c_3d[0], p_c_3d[1], p_c_3d[2], angle, flip_flag]
 
                     pub_vis.publish(flag_vis)
                     pub_res.publish(result)
@@ -316,11 +316,13 @@ def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act):
 
                     height = p_3_3d[2] + 0.045
 
-                    flip_flag = True
+                    flip_flag = 1
                     if p_3_3d[2] > p_4_3d[2]:
-                        flip_flag = True
+                        flip_flag = 1
                     else:
-                        flip_flag = False
+                        flip_flag = 0
+
+                    print("W-grasp affordance detected!")
 
                     img_show = img_ori.copy()
                     img_show = cv2.circle(img_show, (int(kp[0] + min_x), int(kp[1] + min_y)), 2, (0, 0, 255), 2)  # red
@@ -336,7 +338,7 @@ def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act):
 
                     # turn the flag to true for notifying ROS side
                     flag_vis = True
-                    result = [p_c_3d[0], p_c_3d[1], p_c_3d[2], radius, height]
+                    result = [1, p_c_3d[0], p_c_3d[1], p_c_3d[2], radius, height, flip_flag]
 
                     pub_vis.publish(flag_vis)
                     pub_res.publish(result)
@@ -372,9 +374,11 @@ if __name__ == "__main__":
     rospy.init_node("Object arrangement experiment")
     # Publisher of flag for finishing detection
     pub_vis = rospy.Publisher('/flag_vision', Bool, queue_size=10)
+    # Publisher of flag for finishing detection
+    pub_task = rospy.Publisher('/flag_task', Bool, queue_size=10)
     # Publisher of perception result
     pub_res = rospy.Publisher('/result', Float64MultiArray, queue_size=10)
     # Subscriber of flag of action completion
     sub_act = rospy.Subscriber("/flag_action", Bool, callback_action)
 
-    inference(args, pipeline, align, depth_scale, pub_vis, pub_res, sub_act)
+    inference(args, pipeline, align, depth_scale, pub_vis, pub_res, pub_task)

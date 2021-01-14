@@ -6,3 +6,4 @@ We uploaded all experiment scripts [here](https://github.com/ivalab/AffKpNet/tre
 
 ## Manipulation
 We used Robot Operating System(ROS) for robotic mainpulation. All source code is uploaded to this [Github repository](https://github.com/ivaROS/ivaHandyExperiment).
+If you'd like to reproduce the experiment, please remember that for experiments of object arrangement, cutting the string and pounding the nail, the locations of placing the objects, the string and the nail are predefied. You should modify these locations by your own experimental setup.

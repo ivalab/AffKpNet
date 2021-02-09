@@ -1,5 +1,5 @@
 ## Introduction
-This markdown file includes the investigation result of performing the proposed network for the objects outside of the training distribution. For the object outside of the training distribution, we refer to the object not only with unseen object category but also shares the different geometry from objects in the training dataset. For the object in the training dataset, readers can refer to this [markdown file](https://github.com/ivalab/AffKpNet/blob/master/readme/dataset_visualization.md). The test object includes brush, mouse, scissors, sprayer, tennis ball and toy.
+This markdown file includes the investigation result of performing the proposed network for the objects outside of the training distribution. We've already performed experiments over unseen object instance and category. Here, for the object outside of the training distribution, we refer to the object not only with unseen object category but also shares the different geometry from objects in the training dataset. For the object in the training dataset, readers can refer to this [markdown file](https://github.com/ivalab/AffKpNet/blob/master/readme/dataset_visualization.md). The test object includes brush, mouse, scissors, sprayer, tennis ball and toy.
 
 ## Visualization
 

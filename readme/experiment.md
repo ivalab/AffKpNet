@@ -6,15 +6,20 @@ We uploaded all experiment scripts [here](https://github.com/ivalab/AffKpNet/tre
 
 In the following, we provide the detail of how keypoints are used to infer the execution-related information to perform the corresponding experiment.
 
-For the grasp affordance, we employ 2.5D top-down grasp, which means we only need grasping location and orientation to perform valid grasp. The keypoint 5 indicates the location while keypoints 3 and 4 represent the orientation. 
+### Grasp affordance
+We employ 2.5D top-down grasp, which means we only need grasping location and orientation to perform valid grasp. The keypoint 5 indicates the location while keypoints 3 and 4 represent the orientation. 
 
-For the wrap-grasp affordance, we employ 2.5D grasping strategy. Since the mugs/cups are always placed on the table with top-down pose, the orientation information is known. During the experiment, keypoint 5 indicates the grasping location. For the case where mugs/cups are placed with random pose, keypoints 1 and 2 can be used to infer the orientation. 
+### Wrap-grasp affordance
+We employ 2.5D grasping strategy. Since the mugs/cups are always placed on the table with top-down pose, the orientation information is known. During the experiment, keypoint 5 indicates the grasping location. For the case where mugs/cups are placed with random pose, keypoints 1 and 2 can be used to infer the orientation. 
 
-For the contain affordance, the only information required is the location to drop the grasped object. The 2D keypoint 5 isn't enough to obtain the correct 3D dropping location. THe height information should be acquired from keypoints 1 and 2.
+### Contain affordance
+The only information required is the location to drop the grasped object. The 2D keypoint 5 isn't enough to obtain the correct 3D dropping location. THe height information should be acquired from keypoints 1 and 2.
 
-For the cut affordance, keypoint 2 indicate the contacting, while location and keypoints 1 and 2 indicate the operational direction.
+### Cut affordance
+Keypoint 2 indicate the contacting, while location and keypoints 1 and 2 indicate the operational direction.
 
-For the pound affordance, keypoint 2 indicate the contacting, while location and keypoints 1 and 2 indicate the operational direction.
+### Pound affordance
+Keypoint 2 indicate the contacting, while location and keypoints 1 and 2 indicate the operational direction.
 
 ## Manipulation
 We used Robot Operating System(ROS) for robotic mainpulation. All source code is uploaded to this [Github repository](https://github.com/ivaROS/ivaHandyExperiment).

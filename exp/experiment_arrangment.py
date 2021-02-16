@@ -106,7 +106,7 @@ def inference(args, pipeline, align, depth_scale, pub_vis, pub_res, pub_task):
         img = np.array(color_frame.get_data())
         gray = img.astype(np.uint8)
 
-        if flag_act is True or flag_vis is False:
+        if flag_act is True:
             flag_vis = False
             pub_vis.publish(flag_vis)
 

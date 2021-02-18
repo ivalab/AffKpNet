@@ -84,6 +84,8 @@ owns 5 different instances.
 
 ### No.2
 
+![image](../img/object_variety/spoon_7.png)
+
 ### No.3
 
 ![image](../img/object_variety/spoon_3.png)

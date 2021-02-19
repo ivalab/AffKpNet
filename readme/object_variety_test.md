@@ -76,6 +76,10 @@ owns 5 different instances.
 
 ![image](../img/object_variety/cup_5.png)
 
+### Multiple cups
+
+![image](../img/object_variety/multi_cups.png)
+
 ## Spoon
 
 ### No.1

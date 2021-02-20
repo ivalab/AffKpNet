@@ -6,8 +6,7 @@ This repository is mainly designed for two purposes. One is to reproduce the wor
 
 Our work is mainly composed of two parts. One is for vision benchmark and the other one is about physical experiments. For either training or evaluating AffKp on the proposed dataset, readers can refer to the following section of [Usage](#usage). For physical experiment, the detail of the implementation is provided in the [experiment.md](https://github.com/ivalab/AffKpNet/blob/master/readme/experiment.md), which provides corresponding codes and describes how the proposed work converts 2D affordance keypoints to 3D execution information.
 
-Due to the page limit of RA-L, we offer several supplementary materials here.  
-The [keypoint_visualization.md](https://github.com/ivalab/AffKpNet/blob/master/readme/keypoint_visualization.md) aims to help better understand keypoint representation defined for affordance in robotic manipulation. 
+Due to the page limit of RA-L, to help readers better understand our work we offer several supplementary materials here. The [keypoint_visualization.md](https://github.com/ivalab/AffKpNet/blob/master/readme/keypoint_visualization.md) aims to help better understand keypoint representation defined for affordance in robotic manipulation. 
 Including more visualizations and explanations, the [algorithm.md](https://github.com/ivalab/AffKpNet/blob/master/readme/algorithm.md) detailedly explain the mechanism of the keypoint grouping algorithm. 
 For the proposed dataset, the visualization of all objects locates in the [dataset_visualization.md](https://github.com/ivalab/AffKpNet/blob/master/readme/dataset_visualization.md) and the tutorial of annotating ground truth is provided in the [annotation_tool.md](https://github.com/ivalab/AffKpNet/blob/master/readme/annotation_tool.md). These tools may help readers save some time for generating keypoints and segmentation ground-truth 
 for their own datasets.

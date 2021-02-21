@@ -17,7 +17,13 @@ We employ a sideways (2.5D) grasp strategy. The manipulator will approach the ob
 During each trial, the manipulator will transport the pre-grasped object into the place indicated by the contain affordance. The manipulator will move above the object and release the gripper.
 
 # Object set
-TBD
+
+## Unseen object instance
+![image](../img/keypoint_only/unseen_instance.jpg)
+
+
+## Unseen object category
+![image](../img/keypoint_only/unseen_category.jpg)
 
 # Evaluation metric
 

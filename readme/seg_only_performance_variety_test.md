@@ -10,7 +10,7 @@ operational location can be obtained by the corresponding depth image. By the le
 the red-axis in the following figure.
 
 ## AffKp
-The way that _AffKp_ converts 2D affordance keypoints to 3D pose can be referred to [experiment.md](https://github.com/ivalab/AffKpNet/blob/master/readme/experiment.md).
+The way that _AffKp_ converts 2D affordance keypoints to 3D pose can be referred to [kp_2d_3d.md](https://github.com/ivalab/AffKpNet/blob/master/readme/kp_2d_3d.md).
 
 # Result
 ![image](../img/seg_pv_test/fig_pv_3d.png)

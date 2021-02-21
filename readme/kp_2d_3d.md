@@ -20,26 +20,38 @@ We employ 2.5D top-down grasp, which means only grasping location and orientatio
 The origin of the frame is determined by the keypoint 5. The task-dependent axis which is the y-axis is computed by keypoints 3 and 4. 
 Then the x-axis is computed by y-axis and keypoints 1 and 2. Lastly the z-axis is computed by cross-product.
 
+![image](../img/kp_2d_3d/github_kp_2d3d_grasp.png)
+
 ### Contain
 The contain task only requires the 3D location to drop the pre-grasped object off. The origin of the frame is computed by the keypoint 5. The axis is set to be default.
 
+![image](../img/kp_2d_3d/github_kp_2d3d_contain.png)
 
 ### Wrap-grasp
 We employ similar 2.5D face-forward grasp, which means only grasping location and orientation are needed to perform valid grasp. 
 The origin of the frame is determined by the keypoint 5. The task-dependent axis which is the y-axis is computed by keypoints 1 and 2. 
 Then the x-axis is computed by y-axis and keypoints 3 and 4. Lastly the z-axis is computed by cross-product.
 
+![image](../img/kp_2d_3d/github_kp_2d3d_wgrasp.png)
+
 ## Object arrangement
 
 ### Tableware
 
+![image](../img/kp_2d_3d/github_kp_2d3d_grasp.png)
 
 ### Mug/Cup
+
+![image](../img/kp_2d_3d/github_kp_2d3d_wgrasp.png)
 
 ## Direction Dependent Manipulation
 
 ### Knife
 The cut task involves two affordances: _grasp_ and _cut_. The _grasp_ affordance which is already introduced above.
 
+![image](../img/kp_2d_3d/github_kp_2d3d_cut.png)
+
 ### Hammer
 The cut task involves two affordances: _grasp_ and _pound_. The _grasp_ affordance which is already introduced above.
+
+![image](../img/kp_2d_3d/github_kp_2d3d_pound.png)

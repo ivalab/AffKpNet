@@ -2,9 +2,9 @@
 Ruinian Xu, Fu-Jen Chu, Chao Tang, Weiyu Liu and Patricio A. Vela
 
 ## Description of Contents
-This repository is mainly designed for two purposes. One is to reproduce the work of An Affordance keypoint Detction Network for Robot Manipulation. The other one is to be served as the supplementary material for readers to have a better understanding of our RA-L work.
+This repository is mainly designed for two purposes. One is to reproduce the work of An Affordance Keypoint Detcetion Network for Robot Manipulation. The other one is to provide supplementary material for readers to have a better understanding of our RA-L work, _AffKP_.
 
-Our work is mainly composed of two parts. One is for vision benchmark and the other one is about physical experiments. For either training or evaluating AffKp on the proposed dataset, readers can refer to the following section of [Usage](#usage). For physical experiment, the detail of the implementation is provided in the [experiment.md](https://github.com/ivalab/AffKpNet/blob/master/readme/experiment.md), which provides corresponding codes and describes how the proposed work converts 2D affordance keypoints to 3D execution information.
+The outcomes are mainly composed of two parts. One performs vision benchmarking and the other physical manipulation testing. For either training or evaluating AffKp on the proposed dataset, readers can refer to the following section of [Usage](#usage). For the physical experiment, the detail of the implementation is provided in the [experiment.md](https://github.com/ivalab/AffKpNet/blob/master/readme/experiment.md), which provides corresponding codes and describes how the proposed work converts 2D affordance keypoints to 3D execution information.
 
 Due to the page limit of RA-L, to help readers better understand our work we offer several supplementary materials here. The [keypoint_visualization.md](https://github.com/ivalab/AffKpNet/blob/master/readme/keypoint_visualization.md) aims to help better understand keypoint representation defined for affordance in robotic manipulation. 
 Including more visualizations and explanations, the [algorithm.md](https://github.com/ivalab/AffKpNet/blob/master/readme/algorithm.md) detailedly explain the mechanism of the keypoint grouping algorithm. 

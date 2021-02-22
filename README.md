@@ -13,7 +13,7 @@ _Keypoint description:_ The [keypoint_visualization.md](https://github.com/ivala
 
 _Keypoint grouping:_ Including more visualizations and explanations, the [algorithm.md](https://github.com/ivalab/AffKpNet/blob/master/readme/algorithm.md) detailedly explain the mechanism of the keypoint grouping algorithm. 
 
-_Keypoint 2D to 3D Post-Processing:_ **ADD HERE**
+_Keypoint 2D to 3D Post-Processing:_ Including the implementation of converting 2D affordance keypoints to 3D execution-related information, the [kp_2d_3d.md](https://github.com/ivalab/AffKpNet/blob/master/readme/kp_2d_3d.md) documents the 2D-to-3D conversion method with corresponding visualizations.
 
 _Dataset Additions and Annotation:_ For the proposed UMD+GT affordance segmentation and keypoint dataset, the visualization of all objects is in the [dataset_visualization.md](https://github.com/ivalab/AffKpNet/blob/master/readme/dataset_visualization.md) and the tutorial of annotating ground truth is provided in the [annotation_tool.md](https://github.com/ivalab/AffKpNet/blob/master/readme/annotation_tool.md). These tools may help readers save some time for generating keypoints and segmentation ground-truth for their own datasets.
 

@@ -5,7 +5,7 @@ This markdown file includes the investigation result of performing the proposed 
 
 ### Scene 1
 
-![image]<../img/occlusion/scene_1/image.png width="640" height="480">
+![image](../img/occlusion/scene_1/image.png){:height="480px" width="640px"}
 
 ![image](../img/occlusion/scene_1/mask.png)
 

@@ -9,9 +9,10 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/out_of_distribution/brush/brush_mask.png)
 
-![image](../img/out_of_distribution/brush/brush_0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/brush/brush_0_kp.png" width="640">
 
-![image](../img/out_of_distribution/brush/brush_2_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/brush/brush_2_kp.png" width="640">
+
 
 ### mouse
 
@@ -19,12 +20,11 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/out_of_distribution/mouse/mouse_mask.png)
 
-![image](../img/out_of_distribution/mouse/mouse_0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/mouse/mouse_0_kp.png" width="640">
 
-![image](../img/out_of_distribution/mouse/mouse_1_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/mouse/mouse_1_kp.png" width="640">
 
-![image](../img/out_of_distribution/mouse/mouse_2_kp.png)
-
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/mouse/mouse_2_kp.png" width="640">
 
 ### scissors
 
@@ -32,9 +32,10 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/out_of_distribution/scissors/scissors_mask.png)
 
-![image](../img/out_of_distribution/scissors/scissors_0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/scissors/scissors_0_kp.png" width="640">
 
-![image](../img/out_of_distribution/scissors/scissors_4_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/scissors/scissors_4_kp.png" width="640">
+
 
 ### sprayer
 
@@ -42,11 +43,12 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/out_of_distribution/sprayer/sparyer_mask.png)
 
-![image](../img/out_of_distribution/sprayer/sparyer_0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/sprayer/sparyer_0_kp.png" width="640">
 
-![image](../img/out_of_distribution/sprayer/sparyer_2_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/sprayer/sparyer_2_kp.png" width="640">
 
-![image](../img/out_of_distribution/sprayer/sparyer_4_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/sprayer/sparyer_4_kp.png" width="640">
+
 
 ### tennis_ball
 
@@ -54,11 +56,12 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/out_of_distribution/tennis_ball/tennis_ball_mask.png)
 
-![image](../img/out_of_distribution/tennis_ball/tennis_ball_0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/tennis_ball/tennis_ball_0_kp.png" width="640">
 
-![image](../img/out_of_distribution/tennis_ball/tennis_ball_2_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/tennis_ball/tennis_ball_2_kp.png" width="640">
 
-![image](../img/out_of_distribution/tennis_ball/tennis_ball_3_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/tennis_ball/tennis_ball_3_kp.png" width="640">
+
 
 ### toy
 
@@ -66,9 +69,9 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/out_of_distribution/toy/toy_mask.png)
 
-![image](../img/out_of_distribution/toy/toy_0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/toy/toy_0_kp.png" width="640">
 
-![image](../img/out_of_distribution/toy/toy_2_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/out_of_distribution/toy/toy_2_kp.png" width="640">
 
 ## Observation
 From the visualizations, we can find that the proposed network provides the reasonable prediction based on the object's geometry, even though it is incorrect. The most obvious phenomenon is that all objects with large area surface are predicted as the scoop affordance. The tennis ball is predicted as the contain affordance due to its circular shape. Surprisingly the scissors gets reasonable affordance mask prediction but the keypoints prediction is compeltely wrong. 

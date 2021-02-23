@@ -7,6 +7,8 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/occlusion/scene_1/image.png){:height="480px" width="640px"}
 
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_1/image.png" width="640", height="480">
+
 ![image](../img/occlusion/scene_1/mask.png)
 
 ![image](../img/occlusion/scene_1/0_kp.png)

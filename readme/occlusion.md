@@ -5,21 +5,17 @@ This markdown file includes the investigation result of performing the proposed 
 
 ### Scene 1
 
-![image](../img/occlusion/scene_1/image.png){:height="480px" width="640px"}
-
-<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_1/image.png" width="640">
+![image](../img/occlusion/scene_1/image.png)
 
 ![image](../img/occlusion/scene_1/mask.png)
 
 <img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_1/0_kp.png" width="640">
 
-![image](../img/occlusion/scene_1/0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_1/2_kp.png" width="640">
 
-![image](../img/occlusion/scene_1/2_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_1/3_kp.png" width="640">
 
-![image](../img/occlusion/scene_1/3_kp.png)
-
-![image](../img/occlusion/scene_1/4_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_1/4_kp.png" width="640">
 
 ### Scene 2
 
@@ -27,13 +23,13 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/occlusion/scene_2/mask.png)
 
-![image](../img/occlusion/scene_2/0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_2/0_kp.png" width="640">
 
-![image](../img/occlusion/scene_2/2_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_2/2_kp.png" width="640">
 
-![image](../img/occlusion/scene_2/3_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_2/3_kp.png" width="640">
 
-![image](../img/occlusion/scene_2/5_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_2/5_kp.png" width="640">
 
 ### Scene 3
 
@@ -41,11 +37,12 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/occlusion/scene_3/mask.png)
 
-![image](../img/occlusion/scene_3/0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_3/0_kp.png" width="640">
 
-![image](../img/occlusion/scene_3/1_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_3/1_kp.png" width="640">
 
-![image](../img/occlusion/scene_3/3_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_3/3_kp.png" width="640">
+
 
 ### Scene 4
 
@@ -53,7 +50,7 @@ This markdown file includes the investigation result of performing the proposed 
 
 ![image](../img/occlusion/scene_4/mask.png)
 
-![image](../img/occlusion/scene_4/0_kp.png)
+<img src="https://github.com/ivalab/AffKpNet/blob/master/img/occlusion/scene_4/0_kp.png" width="640">
 
 
 ## Observation

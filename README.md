@@ -86,7 +86,7 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
 
 4 . Evaluation
 
-  - Download trained model [AKNet](https://www.dropbox.com/s/kfcxxwpq9z540wo/best_checkpoint.pth.tar?dl=0) and put it in folder `./danet_kp/umd_gt/model`
+  - Download trained model [AKNet](https://www.dropbox.com/sh/pvp437svdmdk01i/AAAbAhrsbexQrN6XQJbwH5i-a?dl=0) and put it in folder `./danet_kp/umd_gt/model`
   - Evaluation code is in folder `./danet_kp`
   - `cd danet`
 

@@ -88,18 +88,18 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
 
   - Download trained model [AKNet](https://www.dropbox.com/sh/xdyhk5fe465shkl/AACz9C6VjXFKloQF5QwLAiuRa?dl=0) and put it in folder `./danet_kp/umd_gt/model`
   - Evaluation code is in folder `./danet_kp`
-  - `cd danet`
+  - `cd danet_kp`
 
   - For evaluating affordance segmentation, please run:
   
    ```shell
-   CUDA_VISIBLE_DEVICES=0 python test_aff_mask.py --dataset umd_self_kp --model danet_kp --resume-dir /danet_kp/umd_gt/model --base-size 480 --crop-size 480 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval
+   CUDA_VISIBLE_DEVICES=0 python eval_aff_mask.py --dataset umd_self_kp --model danet_kp --resume-dir /danet_kp/umd_gt/model --base-size 480 --crop-size 480 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval
    ```
    
   - For evaluating affordance keypoint, please run:
   
    ```shell
-   CUDA_VISIBLE_DEVICES=0 python test_aff_kp.py --dataset umd_self_kp --model danet_kp --resume-dir /danet_kp/umd_gt/model --base-size 480 --crop-size 480 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval --multi-scales --eval
+   CUDA_VISIBLE_DEVICES=0 python eval_aff_kp.py --dataset umd_self_kp --model danet_kp --resume-dir /danet_kp/umd_gt/model --base-size 480 --crop-size 480 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval --multi-scales --eval
    ```  
    
 5. Evaluation Result:

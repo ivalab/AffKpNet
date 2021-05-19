@@ -49,6 +49,9 @@ Fig. 2 - Affordance keypoint representation for six affordances.
 ![image](img/fig_network.png)
 Fig. 3 - Affordance keypoint detection network architecture.
 
+> [**AffKp**](https://ieeexplore.ieee.org/abstract/document/9364360),            
+> Ruinian Xu, Fujen Chu, Chao Tang, Weiyu Liu, Patricio Vela 
+
 ## Result
 ### UMD GT segmentation result
 

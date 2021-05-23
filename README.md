@@ -143,6 +143,16 @@ In `danet_kp/train_aff_kp.py`, replace `norm_layer=BatchNorm2d` with `norm_layer
 ## Citation
 If AKNet is useful for your research, please consider citing:
 ```
+@article{xu2021affordance,
+  title={An Affordance Keypoint Detection Network for Robot Manipulation},
+  author={Xu, Ruinian and Chu, Fu-Jen and Tang, Chao and Liu, Weiyu and Vela, Patricio A},
+  journal={IEEE Robotics and Automation Letters},
+  volume={6},
+  number={2},
+  pages={2870--2877},
+  year={2021},
+  publisher={IEEE}
+}
 ```
 
 ## Acknowledgement

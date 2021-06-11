@@ -84,7 +84,7 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
    
 3. Dataset
 
-  - Download the [UMD+GT](https://sites.google.com/view/rgb-d-aff-kp-dataset) dataset. [Google Drive](https://drive.google.com/file/d/1lWJDKyHILxOtMZ5nctxvY86igH5tFQoS/view?usp=sharing) is also provided now.
+  - Download the [UMD+GT](https://sites.google.com/view/rgb-d-aff-kp-dataset) dataset. [Google Drive](https://drive.google.com/drive/folders/1QaPBG4uavuNfdo3Po0RJMkddaEtmEEpC?usp=sharing) is also provided now.
   - Please put dataset in folder `./datasets`
 
 4 . Evaluation

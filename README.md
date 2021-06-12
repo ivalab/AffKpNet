@@ -84,8 +84,11 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
    
 3. Dataset
 
-  - Download the [UMD+GT](https://sites.google.com/view/rgb-d-aff-kp-dataset) dataset. [Google Drive](https://drive.google.com/file/d/1lWJDKyHILxOtMZ5nctxvY86igH5tFQoS/view?usp=sharing) is also provided now.
-  - Please put dataset in folder `./datasets`
+  - Download the [UMD+GT](https://sites.google.com/view/rgb-d-aff-kp-dataset) dataset. [Google Drive](https://drive.google.com/drive/folders/1QaPBG4uavuNfdo3Po0RJMkddaEtmEEpC?usp=sharing) is also provided now.
+  - Please put dataset in folder `./datasets/UMD_GT`
+  - Download masks which named UMD_GT_MASK.zip and put it under `./datasets/UMD_GT_MASK`
+  - Download split files for training and validation sets which are named train_umdself_kp_cateSplit.txt and test_umdself_kp_cateSplit.txt. Put them under 
+`./datasets`
 
 4 . Evaluation
 

@@ -101,6 +101,10 @@ Fig. 5 - Result of affordance keypoint detection over UMD+GT dataset.
    ```shell
    CUDA_VISIBLE_DEVICES=0 python eval_aff_mask.py --dataset umd_self_kp --model danet_kp --resume-dir /danet_kp/umd_gt/model --base-size 480 --crop-size 480 --workers 1 --backbone resnet101 --multi-grid --multi-dilation 4 8 16 --eval
    ```
+   The above script will save all predicted mask into the specified location. After that you need to run myEvaluationWFB_bg.m to compute the score. The evaluation
+   process requires mask files of testing dataset. By referring the file named umd_gt_category_split.txt which 1 represents the training dataset and 2 
+   represents the testing dataset, you can manually split the downloaded dataset into a separate folder, which only contains those objects in the testing dataset.
+   You will need to change folder names of predictions and ground-truth. 
    
   - For evaluating affordance keypoint, please run:
   
